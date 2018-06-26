@@ -1,0 +1,64 @@
+#fejlec{
+	height: 50px;
+	text-align: center;
+}
+
+#lablec{
+	height: 30px;
+	clear: both;
+	text-align: center;
+	color: darkred;
+}
+
+#lista{
+	width: 60%;
+	float: left;
+	text-align: center;
+}
+
+#kezelo{
+	width: 40%;
+	float: right;
+}
+
+#keret{
+	width: 950px;
+	margin-left: auto;
+	margin-right:auto;
+	padding: 30px;
+	background-color: #cbbcce;
+	border-radius: 10px;
+}
+
+#menu{
+	width: 950px;
+	text-align: center;
+}
+
+.modul{
+	border: 1px solid black;
+	background-color: #eeeeec;
+	padding: 10px;
+	margin-top: 10px;
+}
+body{
+	background-color: #111154;
+}
+
+#alkalmazott{
+	border: 2px solid black;
+	text-align: center;
+}
+
+table, th, td{
+	border: 1px solid black;
+}
+
+table{
+	text-align: center;
+	margin: auto;
+	border-radius: 10px;
+}
+a:hover{
+	background-color: lightblue;
+}

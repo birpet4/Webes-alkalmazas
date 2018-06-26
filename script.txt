@@ -1,0 +1,267 @@
+﻿-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Cim`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Cim` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `iranyitoszam` INT NULL,
+  `varos` VARCHAR(45) NULL,
+  `Utca` VARCHAR(45) NULL,
+  `Hazszam` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Ugyfel`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Ugyfel` (
+  `id` INT NOT NULL,
+  `vezeteknev` VARCHAR(45) NULL,
+  `keresztnev` VARCHAR(45) NULL,
+  `szuletesiDatum` DATE NULL,
+  `cim_id` INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  INDEX `Cím_Id_idx` (`cim_id` ASC),
+  CONSTRAINT `Cím_Id`
+    FOREIGN KEY (`cim_id`)
+    REFERENCES `mydb`.`Cim` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Elofizetes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Elofizetes` (
+  `id` INT NOT NULL,
+  `tipus` VARCHAR(45) NULL,
+  `tarifacsomag` VARCHAR(45) NULL,
+  `ar` INT NULL,
+  `kezdoDatum` DATE NULL,
+  `lejaratiDatum` DATE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Elofizet`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Elofizet` (
+  `ugyfelId` INT NOT NULL,
+  `elofizetesId` INT NOT NULL,
+  PRIMARY KEY (`ugyfelId`, `elofizetesId`),
+  INDEX `elofizetesId_idx` (`elofizetesId` ASC),
+  CONSTRAINT `ugyfelId`
+    FOREIGN KEY (`ugyfelId`)
+    REFERENCES `mydb`.`Ugyfel` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `elofizetesId`
+    FOREIGN KEY (`elofizetesId`)
+    REFERENCES `mydb`.`Elofizetes` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`Cim`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (1, 1015, 'Budapest', 'Batthyány', 15);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (2, 1224, 'Budapest', 'Erkel Ferenc', 12);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (3, 2600, 'Vác', 'Városház', 20);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (4, 2089, 'Telki', 'Park', 21);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (5, 9970, 'Szentgotthárd', 'Főtér', 20);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (6, 9400, 'Sopron', 'Bajza', 15);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (7, 1025, 'Budapest', 'Nagybányai', 20);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (8, 5600, 'Békéscsaba', 'Főútvonal', 30);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (9, 1122, 'Budapest', 'Pálya', 44);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (10, 9000, 'Győr', 'Páva', 76);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (11, 3501, 'Miskolc', 'Paulay Ede', 78);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (12, 3300, 'Eger', 'Pauler', 88);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (13, 5000, 'Szolnok', 'Toldy Ferenc', 1);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (14, 3300, 'Eger', 'Pápa', 5);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (15, 9000, 'Győr', 'Nagymező', 99);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (16, 1131, 'Budapest', 'Király', 7);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (17, 1041, 'Budapest', 'Vígadó', 9);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (18, 3500, 'Miskolc', 'Szabadság', 24);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (19, 8600, 'Siófok', 'Part', 15);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (20, 6600, 'Szentes', 'Panel', 20);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (21, 8500, 'Pápa', 'Podmaniczky', 21);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (22, 4450, 'Tiszalök', 'Felsőhatár', 10);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (23, 2730, 'Albertirsa', 'Alállomás', 7);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (24, 2800, 'Tatabánya', 'Egyenes', 4);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (25, 2000, 'Szentendre', 'Vörösmarty', 2);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (26, 1054, 'Budapest', 'Váci', 8);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (27, 1091, 'Budapest', 'Mészáros', 4);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (28, 3000, 'Hatvan', 'Királyok hada', 9);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (29, 2040, 'Budaörs', 'Magyar', 55);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (30, 9400, 'Sopron', 'Petőfi Sándor', 54);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (31, 6700, 'Szeged', 'István', 53);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (32, 7600, 'Pécs', 'Visegrád', 88);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (33, 2500, 'Esztergom', 'Róbert Károly', 32);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (34, 2081, 'Piliscsaba', 'Béla király', 53);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (35, 2025, 'Visegrád', 'Salamon', 26);
+INSERT INTO `mydb`.`Cim` (`id`, `iranyitoszam`, `varos`, `Utca`, `Hazszam`) VALUES (36, 2200, 'Monor', 'Monor', 6);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`Ugyfel`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (98765432, 'Mátyás ', 'Elek', '1995-11-25', 1);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (12345678, 'Szabó', 'Richárd', '1901-04-23', 2);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (87812345, 'Mészáros', 'Anett', '1902-09-15', 3);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (49721678, 'Boros', 'Anna', '1903-07-09', 4);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (68751375, 'Balázs', 'Borbála', '1905-12-14', 5);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (78945612, 'Telki', 'Balázs', '1990-11-09', 6);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (15975346, 'Hermann', 'Ottó', '1987-04-02', 7);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (64829713, 'Polgár', 'Annamária', '1984-10-10', 8);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (97846513, 'Rigó', 'István', '1984-04-23', 9);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (65498732, 'Császár', 'Béla', '1982-03-01', 10);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (14863257, 'Pintér', 'Katalin', '1982-01-27', 11);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (79846213, 'Czeglédi', 'Anett', '1979-02-20', 12);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (98745612, 'Kormos', 'Balázs', '1978-09-19', 13);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (95756123, 'Kőhalmi', 'Péter', '1976-07-09', 14);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (48795612, 'Beliczai', 'Ádám', '1974-09-06', 15);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (32459786, 'Marosi', 'Dániel', '1971-11-09', 16);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (54978623, 'Szarvas', 'Dániel', '1969-12-16', 17);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (45678912, 'Szabó', 'Ádám', '1968-11-19', 18);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (65498761, 'Kovács', 'István', '1968-04-12', 19);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (12457963, 'Kovács', 'Péter', '1967-03-06', 20);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (32657982, 'Füle', 'Bertalan', '1964-12-21', 21);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (68789562, 'Nagy', 'Bence', '1960-03-03', 22);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (78451365, 'Kovács', 'Jakab', '1959-11-23', 23);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (45678942, 'Nagy', 'Szaniszló', '1956-03-01', 24);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (45678951, 'Nguyen', 'Ferenc', '1953-04-20', 25);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (54687231, 'Herczeg', 'Viktor', '1952-02-25', 26);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (54984561, 'Pető', 'Krisztina', '1969-03-03', 27);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (68763575, 'Jankovics', 'Júlia', '1970-10-08', 28);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (78631467, 'Budai', 'Nóra', '1971-05-05', 29);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (46794612, 'Ferencz', 'Lilla', '1980-09-11', 30);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (57586451, 'Tóth', 'Márta', '1985-07-01', 31);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (78951248, 'Tóth', 'Béla', '1988-09-09', 32);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (78945619, 'Tordai', 'Bence', '1990-01-01', 33);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (58293133, 'Illjics', 'Dániel', '1900-04-20', 34);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (33489756, 'Vlagyimir', 'Péter', '1956-10-23', 35);
+INSERT INTO `mydb`.`Ugyfel` (`id`, `vezeteknev`, `keresztnev`, `szuletesiDatum`, `cim_id`) VALUES (66789412, 'Lenin', 'Uljanov', '1989-11-17', 36);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`Elofizetes`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (1, 'mobil', 'Tarifa 1', 1990, '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (2, 'TV', 'Műholdas', 1500, '2017-04-02', '2020-03-12');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (3, 'internet', '20 MBit', 5400, '2016-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (4, 'internet', '30 MBit', 6150, '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (5, 'mobil', 'Tarifa 1', 1990, '2015-04-02', '2020-03-12');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (6, 'TV', 'IPTV +50', 5100, '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (7, 'TV', 'IPTV Alap', 3525, '2017-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (8, 'mobil', 'Tarifa 2', 5049, '2016-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (9, 'internet', '120 MBit', 6975, '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (10, 'mobil', 'Tarifa 2', 5049, '2015-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (11, 'mobil', 'Tarifa 1', 1990, '2016-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (12, 'internet', '10 MBit', 5025 , '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (13, 'mobil', 'Tarifa 3', 10 990 , '2016-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (14, 'TV', 'Műholdas', 1500, '2016-04-02', '2020-03-12');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (15, 'TV', 'IPTV +50', 5100, '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (16, 'mobil', 'Tarifa 3', 10 990 , '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (17, 'internet', '120 MBit', 6975, '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (18, 'internet', '50 MBit', 6525, '2015-04-02', '2020-03-12');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (19, 'mobil', 'Tarfia 1', 1990, '2016-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (20, 'TV', 'Műholdas', 1500, '2014-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (21, 'mobil', 'Tarifa 2', 5049, '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (22, 'internet', '50 MBit', 6525, '2015-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (23, 'mobil', 'Tarifa 3', 10 990 , '2014-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (24, 'TV', 'IPTV Alap', 3525, '2015-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (25, 'internet', '30 MBit', 6150, '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (26, 'TV', 'Műholdas', 1500, '2014-04-02', '2020-03-15');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (27, 'TV', 'IPTV +50', 5100, '2015-04-02', '2019-07-09');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (28, 'mobil', 'Tarifa 1', 1990, '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (29, 'mobil', 'Tarifa 2', 5049, '2017-04-02', '2019-02-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (30, 'internet', '10 MBit', 5025 , '2017-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (31, 'internet', '50 MBit', 6525, '2014-04-02', '2019-01-21');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (32, 'TV', 'Műholdas', 1500, '2015-04-02', '2020-03-12');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (33, 'mobil', 'Tarifa 2', 5049, '2017-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (34, 'mobil', 'Tarifa 1', 1990, '2017-04-02', '2018-04-20');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (35, 'TV', 'IPTV Alap', 3525, '2015-04-02', '2019-01-01');
+INSERT INTO `mydb`.`Elofizetes` (`id`, `tipus`, `tarifacsomag`, `ar`, `kezdoDatum`, `lejaratiDatum`) VALUES (36, 'internet', '120 MBit', 6975, '2014-04-02', '2019-12-31');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`Elofizet`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (98765432, 1);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (12345678, 2);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (87812345, 3);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (49721678, 4);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (68751375, 5);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (78945612, 6);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (15975346, 7);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (64829713, 8);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (97846513, 9);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (65498732, 10);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (14863257, 11);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (79846213, 12);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (98745612, 13);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (95756123, 14);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (95756123, 15);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (48795612, 16);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (48795612, 17);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (32459786, 18);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (54978623, 19);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (54978623, 20);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (78631467, 21);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (46794612, 22);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (78945619, 23);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (87812345, 24);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (33489756, 25);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (57586451, 26);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (65498732, 27);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (12457963, 28);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (79846213, 29);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (65498761, 30);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (78945619, 31);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (58293133, 32);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (68789562, 33);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (12457963, 34);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (66789412, 35);
+INSERT INTO `mydb`.`Elofizet` (`ugyfelId`, `elofizetesId`) VALUES (45678912, 36);
+
+COMMIT;
+
